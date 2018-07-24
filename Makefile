@@ -5,7 +5,8 @@ FLAGS   =   -Wall -Wextra -Werror
 LIB_DIR =   libft/
 NAME1	=	lem-in
 
-SRCS_1	=   srcs/lem_in.c
+SRCS_1	=   srcs/lem_in.c		\
+			srcs/parse_map.c
 
 LIBFT	=	libft/libft.a
 
