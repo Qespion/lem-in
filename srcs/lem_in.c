@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:12:36 by avo               #+#    #+#             */
-/*   Updated: 2018/07/24 17:20:28 by avo              ###   ########.fr       */
+/*   Updated: 2018/08/30 15:54:15 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		ft_printf("ERROR\n");
+		ft_putstr_fd("ERROR\n", 2);
 		return (0);
 	}
 	map = parse_map(ac, av);
+	free(map);
 	return (0);
 }

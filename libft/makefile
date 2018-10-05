@@ -47,7 +47,8 @@ SRC         =     srcs/ft_printf.c	\
 				  srcs/ft_strcmp.c		\
 				  srcs/ft_itoa.c		\
 				  srcs/ft_strdup.c		\
-				  srcs/ft_len_list.c
+				  srcs/ft_len_list.c	\
+				  srcs/ft_strtrimfirst.c
 
 
 C_GREEN	=	"\033[32m"
@@ -61,10 +62,8 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo $(C_GREEN)"[LIBFTv2.1 PLUS FORT en pomme !]" $(C_BASE)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ -I includes/
-	@echo "file =" $(C_BLUE){ $< } $(C_BASE)
 clean:
 	@rm -f $(OBJ)
 	@echo $(C_GREEN)"[CLEAN]" $(C_BASE)

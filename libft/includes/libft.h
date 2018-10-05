@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 13:50:29 by oespion           #+#    #+#             */
-/*   Updated: 2018/07/19 13:51:53 by oespion          ###   ########.fr       */
+/*   Updated: 2018/08/28 19:34:48 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef	struct	s_list
 	struct s_list	*next;
 }				t_list;
 
+
+char			*ft_strtrimfirst(char const *s);
 int				ft_strcmp(char *s1, char *s2);
 void			ft_putstr_fd(char const *s, int fd);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);

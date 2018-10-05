@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    visual.py                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: avo <avo@student.42.fr>                    +#+  +:+       +#+         #
+#    By: oespion <oespion@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/08/24 17:03:00 by avo               #+#    #+#              #
-#    Updated: 2018/08/24 19:13:23 by avo              ###   ########.fr        #
+#    Updated: 2018/08/28 16:42:32 by oespion          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,9 @@ with open(sys.argv[1], 'r') as my_file:
     print("first line == %s\n" %(ret))
     mov = my_file.read().split()
     # print("and the rest %s\n" %(mov)
-    
+
 #make the pygame window
-pygame.display.set_mode((width, height ) )
+pygame.display.set_mode((width, height))
 print(ret)
 print(mov)
 running = True

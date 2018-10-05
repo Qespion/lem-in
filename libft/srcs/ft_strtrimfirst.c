@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   ft_strtrimfirst.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/24 16:14:40 by avo               #+#    #+#             */
-/*   Updated: 2018/08/28 18:53:23 by oespion          ###   ########.fr       */
+/*   Created: 2018/08/28 19:12:07 by oespion           #+#    #+#             */
+/*   Updated: 2018/08/28 19:34:36 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "libft.h"
 
-typedef struct	s_m
+char    *ft_strtrimfirst(char const *s)
 {
-	struct s_m	*next;
-	char		*dest;
-}				t_m;
+    char    *str;
+    int     len;
+    int     r;
 
-typedef struct	s_node
-{
-	char		*name;
-	t_m			*road;
-}				t_node;
-
-typedef struct s_map
-{
-	t_node		*node;
-	t_node		*start;
-	t_node		*end;
-	int			ants;
-}				t_map;
-
-t_map			*parse_map(int ac, char **av);
-
-#endif
+    r = 0;
+    len = 0;
+    while (s[len] != ' ' && s[len] != '\0')
+        len++;
+    if(!(str = (char*)malloc(sizeof(char) * (len))))
+        exit(-1);
+    while (r < len)
+    {
+        str[r] = s[r];
+        r++;
+    }
+    str[r] = '\0';
+    return (str);
+}

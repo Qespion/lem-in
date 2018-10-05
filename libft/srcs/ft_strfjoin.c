@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/01 14:51:13 by oespion           #+#    #+#             */
-/*   Updated: 2018/07/15 13:45:09 by oespion          ###   ########.fr       */
+/*   Updated: 2018/08/28 15:55:52 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strfjoin(char *s1, char *s2)
 		return (NULL);
 	len = ft_strlen(s1) + ft_strlen(s2);
 	if (!(str = (char*)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
+		exit (-1);
 	ft_bzero(str, len + 1);
 	ft_strcat(str, s1);
 	if (s1)

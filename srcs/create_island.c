@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   create_island.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/24 16:14:40 by avo               #+#    #+#             */
-/*   Updated: 2018/08/28 18:53:23 by oespion          ###   ########.fr       */
+/*   Created: 2018/08/28 18:37:06 by oespion           #+#    #+#             */
+/*   Updated: 2018/08/28 18:54:09 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "../libft/includes/libft.h"
+#include "lem_in.h"
 
-typedef struct	s_m
+void	create_island(char *str, t_map *map, int m_limits)
 {
-	struct s_m	*next;
-	char		*dest;
-}				t_m;
+	t_node	*new_node;
 
-typedef struct	s_node
-{
-	char		*name;
-	t_m			*road;
-}				t_node;
-
-typedef struct s_map
-{
-	t_node		*node;
-	t_node		*start;
-	t_node		*end;
-	int			ants;
-}				t_map;
-
-t_map			*parse_map(int ac, char **av);
-
-#endif
+	if (str[0] != '#')
+	{
+		if (!(t_node*)malloc(sizeof(new_node)))
+			exit(-1);
+		new_node->name = str;
+	}
+}
