@@ -1,0 +1,28 @@
+9
+##start
+start 90 90
+##end
+end 111 111
+A0 0 0
+B0 6 6
+B1 7 7
+B2 8 8
+B3 9 9
+B4 10 10
+B5 11 11
+C0 1 1
+C1 2 2
+C2 3 3
+start-A0
+A0-end
+start-B0
+B0-B1
+B1-B2
+B2-B3
+B3-B4
+B4-B5
+B5-end
+start-C0
+C0-C1
+C1-C2
+C2-end

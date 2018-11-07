@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/19 13:50:29 by oespion           #+#    #+#             */
-/*   Updated: 2018/08/28 19:34:48 by oespion          ###   ########.fr       */
+/*   Updated: 2018/10/29 19:41:43 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef	struct	s_list
 }				t_list;
 
 
+char			*ft_strchr(const char *s, int c);
+char			*ft_strstr(const char *s1, const char *s2);
 char			*ft_strtrimfirst(char const *s);
 int				ft_strcmp(char *s1, char *s2);
 void			ft_putstr_fd(char const *s, int fd);
