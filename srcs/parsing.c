@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/24 23:08:41 by avo               #+#    #+#             */
-/*   Updated: 2018/12/18 15:09:13 by avo              ###   ########.fr       */
+/*   Updated: 2019/01/04 15:50:30 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		find_space(char *str)
 t_map   *get_island(char *str, int *turn, t_map *map, int border)
 {
 	t_node	*new_node;
+
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
 	else if (!ft_strcmp(str, "##start") || !ft_strcmp(str, "##end"))
@@ -64,7 +65,10 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 	new_node->name = ft_strsub(str, 0, find_space(str));
 	new_node->link = NULL;
 	if (!map->jcpu)
+	{
+		map->begin = new_node;
 		map->jcpu = new_node;
+	}
 	else
 	{
 		map->jcpu->next = new_node;
@@ -77,11 +81,79 @@ t_map   *get_island(char *str, int *turn, t_map *map, int border)
 	return (map);
 }
 
+int		find_del(char *str)
+{
+	int	r;
+
+	r = 0;
+	while (str[r])
+	{
+		if (str[r] == '-')
+			return (r);
+		r++;
+	}
+	exit(-1);
+}
 
 t_map   *get_road(char *str, int *turn, t_map *map, int border)
 {
+	t_link	*new_link;
+	t_link	*new_link2;
+	char	*name1;
+	char	*name2;
+	t_node	*tmp;
+	t_node	*tmp2;
+
+	tmp = map->begin;
+	tmp2 = map->begin;
 	if (str[0] == '#' && str[1] != '#')
 		return (map);
+	if (!(new_link = (t_link*)malloc(sizeof(t_link))))
+		exit(-1);
+	if (!(new_link2 = (t_link*)malloc(sizeof(t_link))))
+		exit(-1);
+	name1 = ft_strsub(str, 0, find_del(str));
+	name2 = ft_strchr(str, '-') + 1;
+	while (ft_strcmp(tmp->name, name1))
+	{
+		if (!tmp->next)
+		{
+			ft_printf("%s road not found\n", name1);
+			exit(-1);
+		}
+		tmp = tmp->next;
+	}
+	while (ft_strcmp(tmp2->name, name2))
+	{
+		if (!tmp2->next)
+		{
+			ft_printf("%s road not found\n", name2);
+			exit(-1);
+		}
+		tmp2 = tmp2->next;
+	}
+	while (tmp->link && tmp->link->next)
+		tmp->link = tmp->link->next;
+	if (!tmp->link)
+		tmp->link = new_link;
+	else
+	{
+		tmp->link->next = new_link;
+		tmp->link = tmp->link->next;
+	}
+	tmp->link->node = tmp2;
+	ft_printf("%s tmp1 to %s tmp2\n", tmp->link->node->name, tmp2);
+	while (tmp2->link && tmp2->link->next)
+		tmp2->link = tmp2->link->next;
+	if (!tmp2->link)
+		tmp2->link = new_link;
+	else
+	{
+		tmp2->link->next = new_link;
+		tmp2->link = tmp2->link->next;
+	}
+	tmp2->link->node = tmp;
+	return (map);
 }
 
 int		where_am_i(char *str, int turn, t_map *map)
@@ -92,12 +164,6 @@ int		where_am_i(char *str, int turn, t_map *map)
 		return (1);
 	else if (turn == 1 && ft_strstr(str, "-"))
 		return (2);
-	// FIX THAT 
-	else if (!ft_strchr(str, '-'))
-	{
-		ft_printf("tu marches ?\n");
-		exit(-1);
-	}
 	return (turn);
 }
 
@@ -123,7 +189,7 @@ t_map	*read_file(t_map *map, char *file)
 	static int	turn;
 	int			fd;
 	char		*str;
-	t_map		*(*parse[2])(char *, int *, t_map *, int border);
+	t_map		*(*parse[3])(char *, int *, t_map *, int border);
 
 	turn = 0;
 	border = 0;
@@ -133,8 +199,8 @@ t_map	*read_file(t_map *map, char *file)
 	parse[2] = get_road;
 	while (get_next_line(fd, &str))
 	{
+		// ft_printf("str = %s\n", str);
 		turn = where_am_i(str, turn, map);
-		// ft_printf("%s\n", str);
 		// ft_printf("border %d\n", border);
 		// ft_printf("turn %d\n", turn);
 		parse[turn](str, &turn, map, border);
@@ -155,7 +221,10 @@ t_map	*get_file(char *file)
 	map = read_file(map, file);
 	// ft_printf("%d\n", map->nb);
 	// ft_printf("%s\n", map->jcpu);
-	ft_printf("%s\n", map->jcpu->name);
+	// ft_printf("%s\n", map->jcpu->name);
 	ft_printf("%s\n", map->start->name);
+	ft_printf("%s\n", map->start->link->node->name);
+	ft_printf("%s\n", map->end->name);
+	ft_printf("%s\n", map->end->link->node->name);
 	return (map);
 }
