@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 23:08:41 by avo               #+#    #+#             */
-/*   Updated: 2019/01/04 15:50:30 by oespion          ###   ########.fr       */
+/*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
+/*   Updated: 2019/02/09 19:43:13 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 	char	*name2;
 	t_node	*tmp;
 	t_node	*tmp2;
+	t_link	*tmp_link;
+	t_link	*tmp_link2;
+	t_link	*startlink;
 
 	tmp = map->begin;
 	tmp2 = map->begin;
@@ -132,27 +135,30 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 		}
 		tmp2 = tmp2->next;
 	}
-	while (tmp->link && tmp->link->next)
-		tmp->link = tmp->link->next;
+	new_link->node = tmp2;
+	new_link->next = NULL;
+	new_link2->node = tmp;
+	new_link2->next = NULL;
 	if (!tmp->link)
 		tmp->link = new_link;
 	else
 	{
+		startlink = tmp->link;
+		while (tmp->link->next)
+			tmp->link = tmp->link->next;
 		tmp->link->next = new_link;
-		tmp->link = tmp->link->next;
+		tmp->link = startlink;
 	}
-	tmp->link->node = tmp2;
-	ft_printf("%s tmp1 to %s tmp2\n", tmp->link->node->name, tmp2);
-	while (tmp2->link && tmp2->link->next)
-		tmp2->link = tmp2->link->next;
 	if (!tmp2->link)
-		tmp2->link = new_link;
+		tmp2->link = new_link2;
 	else
 	{
-		tmp2->link->next = new_link;
-		tmp2->link = tmp2->link->next;
+		startlink = tmp2->link;
+		while (tmp2->link->next)
+			tmp2->link = tmp2->link->next;
+		tmp2->link->next = new_link2;
+		tmp2->link = startlink;
 	}
-	tmp2->link->node = tmp;
 	return (map);
 }
 
@@ -197,12 +203,10 @@ t_map	*read_file(t_map *map, char *file)
 	parse[0] = get_ants;
 	parse[1] = get_island;
 	parse[2] = get_road;
-	while (get_next_line(fd, &str))
+	while (get_next_line(0, &str))
 	{
-		// ft_printf("str = %s\n", str);
+		ft_printf("str = %s\n", str);
 		turn = where_am_i(str, turn, map);
-		// ft_printf("border %d\n", border);
-		// ft_printf("turn %d\n", turn);
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
 	}
@@ -219,12 +223,5 @@ t_map	*get_file(char *file)
 	map->start = NULL;
 	map->end = NULL;
 	map = read_file(map, file);
-	// ft_printf("%d\n", map->nb);
-	// ft_printf("%s\n", map->jcpu);
-	// ft_printf("%s\n", map->jcpu->name);
-	ft_printf("%s\n", map->start->name);
-	ft_printf("%s\n", map->start->link->node->name);
-	ft_printf("%s\n", map->end->name);
-	ft_printf("%s\n", map->end->link->node->name);
 	return (map);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/07/24 16:14:40 by avo               #+#    #+#             */
-/*   Updated: 2019/01/04 15:38:22 by oespion          ###   ########.fr       */
+/*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
+/*   Updated: 2019/02/09 20:13:46 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,27 @@ typedef struct		s_node
 typedef struct		s_map
 {
 	int				nb;
-	struct s_node	*jcpu;
-	struct s_node	*start;
+	struct s_node	*jcpu;  // argh
+	struct s_node	*start; //starting point
 	struct s_node	*end;
-	struct s_node	*begin;
+	struct s_node	*begin;	//start of chain
 }					t_map;
 
-t_map	*get_file(char *file);
+typedef struct		s_road
+{
+	struct s_node	*current;
+	struct s_road	*prev;
+	struct s_road	*next;
+}					t_road;
+
+typedef struct		s_solve
+{
+	struct s_road	*path;
+	struct s_solve	*next;
+}								t_solve;
+
+t_map		*get_file(char *file);
+int				get_max_roads(t_map *map);
+t_solve  	*create_routes(t_map *map, int max_roads);
 
 #endif
