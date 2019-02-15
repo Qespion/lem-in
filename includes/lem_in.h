@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/09 20:13:46 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/14 22:39:07 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ typedef struct		s_road
 {
 	struct s_node	*current;
 	struct s_road	*prev;
-	struct s_road	*next;
 }					t_road;
 
 typedef struct		s_solve
@@ -48,8 +47,10 @@ typedef struct		s_solve
 	struct s_solve	*next;
 }								t_solve;
 
+
 t_map		*get_file(char *file);
 int				get_max_roads(t_map *map);
-t_solve  	*create_routes(t_map *map, int max_roads);
+t_solve  	*create_base_routes(t_map *map, int max_roads);
+t_solve  	*create_routes(t_map *map, int max_roads, t_solve *routes);
 
 #endif

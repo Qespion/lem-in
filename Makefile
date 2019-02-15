@@ -7,8 +7,9 @@ NAME1	=	lem-in
 
 SRCS_1	=   srcs/lem_in.c	\
 			srcs/parsing.c	\
-			srcs/routes.c	\
-			srcs/max_roads.c
+			srcs/base_routes.c	\
+			srcs/max_roads.c	\
+			srcs/create_routes.c
 
 LIBFT	=	libft/libft.a
 
