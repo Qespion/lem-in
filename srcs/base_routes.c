@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/15 01:08:57 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/15 19:05:54 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include "lem_in.h"
 
 //  create base routes at start
+
+t_road	*start_road(t_map *map)
+{
+	t_road	*road;
+	if (!(road = (t_road*)malloc(sizeof(t_road))))
+		exit(-1);
+	road->prev = NULL;
+	road->current = map->start;
+	return (road);
+}
 
 t_solve     *get_first_roads(t_solve *solution, t_map *map)
 {
@@ -29,7 +39,7 @@ t_solve     *get_first_roads(t_solve *solution, t_map *map)
 		if (!(road = (t_road*)malloc(sizeof(t_road))))
 			exit(-1);
 		road-> current = tmp->node;
-		road->prev = NULL;
+		road->prev = start_road(map);
 		if (!solution->path)
 			solution->path = road;
 		else

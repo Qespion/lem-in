@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:28:15 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/15 11:06:35 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/15 21:30:50 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,56 +34,41 @@ int				more_one(t_road *road)
 	return (0);
 }
 
+t_solve		*ft_add_end(t_solve *add_end, t_map *map, t_solve *solution)
+{
+	t_solve	*tmp;
+
+	tmp = solution;
+	while (tmp)
+	{
+		if (tmp->path->current->link->node != tmp->path->prev->current)
+			tmp = tmp->next;
+		if (!tmp->next)
+		{
+			//todo
+		}
+		tmp = tmp->next;
+	}
+	return (add_end);
+}
+
 t_solve     *new_turn(t_solve *solution, t_map *map)
 {
 	t_solve	*tmp;
-	t_solve *end;
-	t_solve *add;
-	t_road	*road;
-	t_solve	*new;
-	t_solve	*last;
+	t_solve	*end;
+	t_solve	*add_end;
 
 	tmp = solution;
 	end = solution;
 	while (end->next)
 		end = end->next;
-	add = end;
+	add_end = end;
 	while (tmp != end)
 	{
-		if (more_one(tmp->path))
-		{
-			while (tmp->path->current->link)
-			{
-				if (!(road = (t_road*)malloc(sizeof(t_road))))
-					exit(-1);
-				road->prev = tmp->path;
-				road->current = tmp->path->current->link->node;
-				if (!tmp->path->current->link->next)
-					tmp->path = road;
-				else
-				{
-					if (!(new = (t_solve*)malloc(sizeof(t_solve))))
-						exit(-1);
-					new->path = road;
-					new->next = NULL;
-					add->next = new;
-					add = new;
-				}
-				tmp->path->current->link = tmp->path->current->link->next;
-			}
-		}
-		else
-		{
-			if (!(road = (t_road*)malloc(sizeof(t_road))))
-				exit(-1);
-			road->prev = tmp->path;
-			road->current = tmp->path->current->link->node;
-
-			tmp->path = road;
-		}
-		ft_printf("->%s\n", tmp->path->current->name);
+		add_end = ft_add_end(add_end, map, tmp);
 		tmp = tmp->next;
 	}
+	add_end = ft_add_end(add_end, map, tmp);
 	return solution;
 }
 
