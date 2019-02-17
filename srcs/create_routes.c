@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:28:15 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/15 21:30:50 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/17 20:12:50 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,19 @@ int				more_one(t_road *road)
 
 t_solve		*ft_add_end(t_solve *add_end, t_map *map, t_solve *solution)
 {
-	t_solve	*tmp;
+	t_solve	*tmp_solve;
+	t_link	*tmp_link;
 
-	tmp = solution;
-	while (tmp)
+	tmp_solve = solution;
+	while (tmp_solve)
 	{
-		if (tmp->path->current->link->node != tmp->path->prev->current)
-			tmp = tmp->next;
-		if (!tmp->next)
-		{
-			//todo
-		}
-		tmp = tmp->next;
+		tmp_link = tmp_solve->path->current->link;
+		if (tmp_link->node == tmp_solve->path->prev->current)
+			tmp_link = tmp_link->next;
+		ft_printf("current %s\n", tmp_link->node->name);
+		ft_printf("prev node %s\n", tmp_solve->path->prev->current->name);
+		tmp_solve = tmp_solve->next;
+
 	}
 	return (add_end);
 }

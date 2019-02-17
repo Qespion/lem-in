@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/15 19:08:14 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/17 19:45:31 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,13 @@ typedef struct		s_solve
 {
 	struct s_road	*path;
 	struct s_solve	*next;
-}								t_solve;
+}					t_solve;
 
 
+int			get_max_roads(t_map *map);
 t_map		*get_file(char *file);
-int				get_max_roads(t_map *map);
-t_solve  	*create_base_routes(t_map *map, int max_roads);
-t_solve  	*create_routes(t_map *map, int max_roads, t_solve *routes);
+t_solve		*create_base_routes(t_map *map, int max_roads);
+t_solve		*create_routes(t_map *map, int max_roads, t_solve *routes);
+t_solve		*ft_del_solve(t_solve *start, t_solve *todel);
 
 #endif
