@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/18 16:23:00 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/19 16:18:52 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ t_map		*get_file(char *file);
 t_solve		*create_base_routes(t_map *map, int max_roads);
 t_solve		*create_routes(t_map *map, int max_roads, t_solve *routes);
 t_solve		*ft_del_solve(t_solve *start, t_solve *todel);
+t_solve 	*ft_del_one_solve(t_solve *start, t_solve *todel);
 
 #endif
