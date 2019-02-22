@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/09 19:43:13 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 16:18:22 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 t_map   *get_ants(char *str, int *turn, t_map *map, int border)
 {
+	ft_printf("str = %s\n", str);
 	if (str[0] == '#' && str[1] != '#')
 	{
 		map->nb = -42;
@@ -164,10 +165,10 @@ t_map   *get_road(char *str, int *turn, t_map *map, int border)
 
 int		where_am_i(char *str, int turn, t_map *map)
 {
-	if (str[0] == '#' && str[1] != '#')
-		return (turn);
-	else if (turn == 0 && (map->nb != -42 || !map->nb))
+	if (turn == 0 && (map->nb != -42 || !map->nb))
 		return (1);
+	else if (str[0] == '#' && str[1] != '#')
+		return (turn);
 	else if (turn == 1 && ft_strstr(str, "-"))
 		return (2);
 	return (turn);
@@ -205,7 +206,7 @@ t_map	*read_file(t_map *map, char *file)
 	parse[2] = get_road;
 	while (get_next_line(0, &str))
 	{
-		ft_printf("str = %s\n", str);
+		ft_printf("- %s\n", str);
 		turn = where_am_i(str, turn, map);
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
@@ -222,6 +223,7 @@ t_map	*get_file(char *file)
 	map->jcpu = NULL;
 	map->start = NULL;
 	map->end = NULL;
+	map->nb = -42;
 	map = read_file(map, file);
 	return (map);
 }

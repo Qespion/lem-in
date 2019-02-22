@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:28:15 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/21 14:01:19 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 16:30:19 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ void		read_current(t_solve *solution)
 	}
 	ft_printf("------\n");
 }
-
-// int		found_finish_line(t_solve *solution, t_map *map)
-// {
-// 	while (solution)
-// 	{
-// 		if (solution->path->current == map->end)
-// 		{
-// 			ft_printf("\n\n BOYS WE FOUND SOMETHING\n--\n");
-// 			return (1);
-// 		}
-// 		solution = solution->next;
-// 	}
-// 	return (0);
-// }
 
 int         ft_check(t_solve *routes, char *end_name)
 {
@@ -106,7 +92,7 @@ t_solve		*new_turn(t_solve *solution, t_map *map, t_wroad *wroad, int max_roads)
 	end = solution;
 	while (end->next)
 		end = end->next;
-	while (!enough_wroad(wroad, map, solution))
+	while (!enough_wroad(wroad, map, solution, max_roads))
 	{
 		while (tmp != end)
 		{
@@ -119,6 +105,7 @@ t_solve		*new_turn(t_solve *solution, t_map *map, t_wroad *wroad, int max_roads)
 		while (end->next)
 			end = end->next;
 		read_current(solution);
+		wroad = found_finish_line(solution, map, wroad);
 		tmp = solution;
 	}
 	ft_printf("found solution\n");
@@ -129,8 +116,6 @@ t_solve     *create_routes(t_map *map, int max_roads, t_solve * routes)
 {
 	t_wroad	*wroad;
 
-	if (!(wroad = (t_wroad*)malloc(sizeof(t_wroad))))
-		exit(-1);
 	wroad = NULL;
 	routes = new_turn(routes, map, wroad, max_roads);
 	return routes;

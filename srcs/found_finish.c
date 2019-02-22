@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/21 14:14:09 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 16:10:03 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,45 @@
 
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 {
-	return NULL;	
+	t_wroad	*new_node;
+	t_wroad	*tmp;
+	tmp = wroad;
+	while (solution)
+	{
+		if (solution->path->current == map->end)
+		{
+			if (!(new_node = (t_wroad*)malloc(sizeof(t_wroad))))
+				exit(-1);
+			new_node->path = solution->path;
+			new_node->next = NULL;
+			if (!wroad)
+			{
+				wroad = new_node;
+				tmp = new_node;
+			}
+			else
+			{
+				while (wroad->next)
+					wroad = wroad->next;
+				wroad->next = new_node;
+			}
+		}
+		solution = solution->next;
+	}
+	return (tmp);
 }
 
-int				enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads)
+int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads)
 {
 	int		len_wroad;
 	int		len_road;
 	t_wroad	*tmp;
-	t_solve		*tmp_solve;
+	t_solve	*tmp_solve;
 
 	len_wroad = 0;
 	len_road = 0;
+	tmp = wroad;
+	tmp_solve = solution;
 	while (tmp)
 	{
 		len_wroad++;
@@ -39,9 +66,9 @@ int				enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads
 	}
 	if (len_wroad >= max_roads)
 		return (1);
-	if (len_road = 0)
+	if (len_road == 0)
 		return (1);
-	if (len_wroad > map->nb)
+	if (len_wroad >= map->nb)
 		return (1);
 	return (0);
 }
