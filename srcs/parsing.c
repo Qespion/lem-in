@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 16:18:22 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 17:44:58 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ t_map	*read_file(t_map *map, char *file)
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
 	}
+	ft_printf("test\n");
 	return (map);
 }
 

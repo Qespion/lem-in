@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 16:22:28 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 17:53:10 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ t_solve		*ft_del_solve(t_solve *start, t_solve *todel);
 t_solve 	*ft_del_one_solve(t_solve *start, t_solve *todel);
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
 int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads);
+t_solve		*remove_finish_line(t_solve *solution, t_map *map);
 
 #endif

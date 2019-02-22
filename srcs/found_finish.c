@@ -6,12 +6,30 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 16:10:03 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/22 18:05:20 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
+
+t_solve		*remove_finish_line(t_solve *solution, t_map *map)
+{
+	t_solve	*tmp;
+
+	tmp = solution;
+	while (tmp)
+	{
+		if (tmp == map->end)
+			solution = solution->next;
+		if (tmp->next == map->end)
+		{
+			tmp->next = tmp->next->next;
+		}
+		tmp = tmp->next;
+	}
+	return (solution);
+}
 
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 {
@@ -64,6 +82,7 @@ int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads)
 		len_road++;
 		tmp_solve = tmp_solve->next;
 	}
+	ft_printf("len wroad %d\n", len_wroad);
 	if (len_wroad >= max_roads)
 		return (1);
 	if (len_road == 0)
