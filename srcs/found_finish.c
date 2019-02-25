@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 18:05:20 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/25 16:01:03 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,21 @@ t_solve		*remove_finish_line(t_solve *solution, t_map *map)
 	return (solution);
 }
 
+int					ft_len_wroad(t_road *road)
+{
+	int			len;
+	t_road	*tmp;
+
+	tmp = road;
+	len = 0;
+	while (tmp)
+	{
+		tmp = tmp->prev;
+		len++;
+	}
+	return (len);
+}
+
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 {
 	t_wroad	*new_node;
@@ -44,9 +59,12 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				exit(-1);
 			new_node->path = solution->path;
 			new_node->next = NULL;
+			new_node->conflict = NULL;
+			new_node->len = ft_len_wroad(solution->path);
 			if (!wroad)
 			{
 				wroad = new_node;
+				wroad->nb = 1;
 				tmp = new_node;
 			}
 			else
@@ -54,6 +72,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				while (wroad->next)
 					wroad = wroad->next;
 				wroad->next = new_node;
+				wroad->next->nb = wroad->nb + 1;
 			}
 		}
 		solution = solution->next;
@@ -63,8 +82,8 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 
 int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads)
 {
-	int		len_wroad;
-	int		len_road;
+	int			len_wroad;
+	int			len_road;
 	t_wroad	*tmp;
 	t_solve	*tmp_solve;
 

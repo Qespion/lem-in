@@ -6,7 +6,7 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 17:53:10 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/25 15:46:50 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,18 @@ typedef struct		s_solve
 	struct s_solve	*next;
 }					t_solve;
 
+typedef struct		s_conflict
+{
+	struct s_wroad		*conflict;
+	struct s_conflict	*next;
+}								t_conflict;
+
 typedef struct		s_wroad
 {
-	struct s_road	*path;
-	struct s_wroad *next;
+	int								nb;
+	struct s_road		*path;
+	struct s_wroad 		*next;
+	struct	s_conflict	*conflict;
 	int							len;
 }								t_wroad;
 
@@ -63,5 +71,7 @@ t_solve 	*ft_del_one_solve(t_solve *start, t_solve *todel);
 t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
 int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads);
 t_solve		*remove_finish_line(t_solve *solution, t_map *map);
+void	print_working_roads(t_wroad *wroad, t_map *map);
+t_wroad		*ft_find_conflict(t_wroad *wroad);
 
 #endif

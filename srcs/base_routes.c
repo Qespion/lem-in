@@ -6,14 +6,16 @@
 /*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 15:56:53 by oespion          ###   ########.fr       */
+/*   Updated: 2019/02/25 15:05:49 by oespion          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-//  create base routes at start
+/*
+**  create base routes at start
+*/
 
 t_road	*start_road(t_map *map)
 {
@@ -65,12 +67,5 @@ t_solve    *create_base_routes(t_map *map, int max_roads)
     solution->path = NULL;
     solution->next = NULL;
     solution = get_first_roads(solution, map);
-    // while (solution)
-	// {
-	// 	ft_printf("%s\n", solution->path->current->name);
-	// 	ft_printf("test\n");
-	// 	solution = solution->next;
-	// }
-	// exit(-1);
 	return solution;
 }
