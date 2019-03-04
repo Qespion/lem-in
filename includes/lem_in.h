@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:27:53 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/25 15:46:50 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:58:54 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ typedef struct		s_solve
 
 typedef struct		s_conflict
 {
-	struct s_wroad		*conflict;
-	struct s_conflict	*next;
-}								t_conflict;
+	int						conflict;
+	struct s_conflict *next;
+}							t_conflict;
 
 typedef struct		s_wroad
 {
-	int								nb;
+	int							nb;
+	int							len;
 	struct s_road		*path;
 	struct s_wroad 		*next;
-	struct	s_conflict	*conflict;
-	int							len;
+	struct s_conflict	*conflict;
 }								t_wroad;
 
 int			get_max_roads(t_map *map);
@@ -72,6 +72,7 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad);
 int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads);
 t_solve		*remove_finish_line(t_solve *solution, t_map *map);
 void	print_working_roads(t_wroad *wroad, t_map *map);
-t_wroad		*ft_find_conflict(t_wroad *wroad);
+t_wroad		*ft_find_conflict(t_wroad *wroad, t_map *map);
+void    ft_solve_group(t_wroad *wroad, t_map *map);
 
 #endif

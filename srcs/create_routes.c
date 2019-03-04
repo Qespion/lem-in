@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_routes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:28:15 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/25 15:47:06 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:58:25 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ t_solve		*new_turn(t_solve *solution, t_map *map, t_wroad *wroad, int max_roads)
 		ft_printf("turn : %d\n\n", turn);
 		while (end->next)
 			end = end->next;
-		read_current(solution);
+		// read_current(solution);
 		wroad = found_finish_line(solution, map, wroad);
 		solution = remove_finish_line(solution, map);
 		tmp = solution;
 	}
-	wroad = ft_find_conflict(wroad);
 	print_working_roads(wroad, map);
+	wroad = ft_find_conflict(wroad, map);
+	ft_solve_group(wroad, map);
 	ft_printf("found solution\n");
 	return solution;
 }
@@ -121,5 +122,5 @@ t_solve     *create_routes(t_map *map, int max_roads, t_solve * routes)
 	wroad = NULL;
 	
 	routes = new_turn(routes, map, wroad, max_roads);
-	return routes;
+	return (routes);
 }

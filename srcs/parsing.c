@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/22 17:44:58 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/04 13:53:37 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 t_map   *get_ants(char *str, int *turn, t_map *map, int border)
 {
-	ft_printf("str = %s\n", str);
 	if (str[0] == '#' && str[1] != '#')
 	{
 		map->nb = -42;
@@ -211,7 +210,6 @@ t_map	*read_file(t_map *map, char *file)
 		parse[turn](str, &turn, map, border);
 		border = find_border(str, border);
 	}
-	ft_printf("test\n");
 	return (map);
 }
 

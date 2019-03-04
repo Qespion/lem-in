@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   found_finish.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oespion <oespion@student.42.fr>            +#+  +:+       +#+        */
+/*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/02/25 16:01:03 by oespion          ###   ########.fr       */
+/*   Updated: 2019/03/04 16:02:40 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ t_solve		*remove_finish_line(t_solve *solution, t_map *map)
 	tmp = solution;
 	while (tmp)
 	{
-		if (tmp == map->end)
+		if (tmp->path->current == map->end)
 			solution = solution->next;
-		if (tmp->next == map->end)
-		{
+		else if (tmp->next && tmp->next->path->current == map->end)
 			tmp->next = tmp->next->next;
-		}
 		tmp = tmp->next;
 	}
 	return (solution);
 }
 
-int					ft_len_wroad(t_road *road)
+int					ft_len_road(t_road *road)
 {
 	int			len;
 	t_road	*tmp;
@@ -59,12 +57,11 @@ t_wroad		*found_finish_line(t_solve *solution, t_map *map, t_wroad *wroad)
 				exit(-1);
 			new_node->path = solution->path;
 			new_node->next = NULL;
-			new_node->conflict = NULL;
-			new_node->len = ft_len_wroad(solution->path);
+			new_node->len = ft_len_road(solution->path);
 			if (!wroad)
 			{
 				wroad = new_node;
-				wroad->nb = 1;
+				wroad->nb = 0;
 				tmp = new_node;
 			}
 			else

@@ -14,7 +14,8 @@ SRCS_1	=   srcs/lem_in.c	\
 			srcs/del_one_solve.c \
 			srcs/found_finish.c	\
 			srcs/print_working_roads.c \
-			srcs/find_conflict.c
+			srcs/find_conflict.c	\
+			srcs/calc_grp.c
 
 
 LIBFT	=	libft/libft.a
