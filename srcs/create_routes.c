@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 19:28:15 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 16:58:25 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/05 16:44:37 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_solve		*new_turn(t_solve *solution, t_map *map, t_wroad *wroad, int max_roads)
 		solution = remove_finish_line(solution, map);
 		tmp = solution;
 	}
-	print_working_roads(wroad, map);
+	// print_working_roads(wroad, map);
 	wroad = ft_find_conflict(wroad, map);
 	ft_solve_group(wroad, map);
 	ft_printf("found solution\n");

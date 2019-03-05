@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:22 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 16:47:44 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/05 13:48:10 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ t_solve     *get_first_roads(t_solve *solution, t_map *map)
 	return start;
 }
 
+void	ft_print_solution(t_solve * solution)
+{
+	t_solve	*tmp;
+
+	tmp = solution;
+	while (tmp)
+	{
+		ft_printf("first node: %s\n", tmp->path->current->name);
+		tmp = tmp->next;
+	}
+}
+
 t_solve    *create_base_routes(t_map *map, int max_roads)
 {
     t_solve   *solution;
@@ -67,5 +79,7 @@ t_solve    *create_base_routes(t_map *map, int max_roads)
     solution->path = NULL;
     solution->next = NULL;
     solution = get_first_roads(solution, map);
+	ft_print_solution(solution);
+	// exit(-32);
 	return solution;
 }

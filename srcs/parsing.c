@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/06 16:28:14 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 13:53:37 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/05 13:45:22 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,27 @@ t_map	*read_file(t_map *map, char *file)
 	return (map);
 }
 
+void		ft_print_map(t_map *map)
+{
+	t_node	*tmp;
+	t_link		*tmp_link;
+
+	tmp = map->begin;
+	while (tmp)
+	{
+		ft_printf("%s", tmp->name);
+		ft_printf(" --link -> ");
+		tmp_link = tmp->link;
+		while (tmp_link)
+		{
+			ft_printf(" %s -", tmp_link->node->name);
+			tmp_link = tmp_link->next;
+		}
+		ft_putchar('\n');
+		tmp = tmp->next;
+	}
+}	
+
 t_map	*get_file(char *file)
 {
 	t_map	*map;
@@ -224,5 +245,7 @@ t_map	*get_file(char *file)
 	map->end = NULL;
 	map->nb = -42;
 	map = read_file(map, file);
+	// ft_print_map(map);
+	// exit(-1);
 	return (map);
 }

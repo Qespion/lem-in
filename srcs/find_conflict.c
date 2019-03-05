@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 16:55:55 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/05 17:02:26 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 {
 	unsigned int		len_base;
 	unsigned int		len_tmp;
+	t_conflict				*tmp;
 
 	len_base = 0;
 	len_tmp = 0;
+	if (base_road->current == map->start || base_road->current == map->end
+		|| tmp_road->current == map->start || tmp_road->current == map->end)
+		return (0);
 	while (base_road)
 	{
 		len_base++;
@@ -69,6 +73,19 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 	return (1);
 }
 
+int				ft_check_doubles(t_conflict *conflict, int nb)
+{
+	ft_printf("nb ->%d\n", nb);
+	while (conflict)
+	{
+		ft_printf("conflict %d\n",conflict->conflict );
+		if (conflict->conflict == nb)
+			return (0);
+		conflict = conflict->next;
+	}
+	return (1);
+}
+
 t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 {
 	t_wroad	*list;
@@ -77,25 +94,25 @@ t_wroad		*check_conflict(t_wroad *wroad, t_map *map)
 
 	if (!wroad->next)
 		return (wroad);
-	list = wroad->next;
-	while (list)
+	base_road = wroad->path;
+	while (base_road)
 	{
-		base_road = wroad->path;
-		tmp_road = list->path;
-		while (base_road)
+		list = wroad->next;
+		while (list)
 		{
+			tmp_road = list->path;
 			while (tmp_road)
 			{
 				if (base_road->current == tmp_road->current)
 				{
-					if (ft_deep_check(base_road, tmp_road, map))
+					if (ft_deep_check(base_road, tmp_road, map) && ft_check_doubles(wroad->conflict, list->nb))
 						ft_add_conflict(wroad, list);
 				}
 				tmp_road = tmp_road->prev;
 			}
-			base_road = base_road->prev;
+			list = list->next;
 		}
-		list = list->next;
+		base_road = base_road->prev;
 	}
 	return (wroad);
 }

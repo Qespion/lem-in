@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/04 16:02:40 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/05 14:02:43 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,11 @@ int			enough_wroad(t_wroad *wroad, t_map *map, t_solve *solution, int max_roads)
 		tmp_solve = tmp_solve->next;
 	}
 	ft_printf("len wroad %d\n", len_wroad);
-	if (len_wroad >= max_roads)
+	// WAAARNNNIIINNNNNNNGGGGGGGGG
+	// condition TO REMOOOOVEEEEEE
+	// Not viable in specific maps
+	// Need to check after groups if i need to circle back in routes !!
+	if (len_wroad - 1 > max_roads)
 		return (1);
 	if (len_road == 0)
 		return (1);
