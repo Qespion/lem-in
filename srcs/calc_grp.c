@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:56:23 by avo               #+#    #+#             */
-/*   Updated: 2019/03/05 15:44:06 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/06 14:19:14 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,51 +57,77 @@ int		ft_get_len(int	r, t_wroad *wroad)
 	return (wroad->len);
 }
 
-int		ft_get_turn(t_wroad *wroad, t_wroad *current, t_map *map, int len)
+int		*ft_get_turn(t_wroad *wroad, t_wroad *current, t_map *map, int len)
 {
-	int	tab[len];
+	int	*tab;
 	int	r;
 
-	tab[len] = init_tab(tab, len);
+	if (!(tab = (int*)malloc(sizeof(int) * len)))
+		exit (-1);
+	tab = init_tab(tab, len);
 	r = 0;
 	while (r < len)
 	{
 		if (ft_check_conflict(current->conflict , r))
 			tab[r] = ft_get_len(r, wroad);
-		r++;
+		r++; 
 	}
-	//print tab
+	return (tab);
+}
+
+int		**ft_create_tab(t_wroad *wroad, t_map *map, int len)
+{
+	int			**tab;
+	int			err;
+	t_wroad	*current;
+
+	current = wroad;
+	err = 0;
+	if (!(tab = (int**)malloc(sizeof(int*) * len + 1)))
+		exit(-1);
+	while (err < len)
+	{
+		tab[err] =ft_get_turn(wroad, current, map, len);
+		err++; 
+		current = current->next;
+	}
+	tab[err] = '\0';
+	return (tab);
+}
+
+void	ft_print_tab(int **tab, int len)
+{
+	int	r;
+	int	err;
+
+	err = 0;
 	r = 0;
 	while (r < len)
 	{
-		ft_printf(" %d ", tab[r]);
+		while (err < len)
+		{
+			ft_printf(" %d ", tab[r][err]);
+			err++;
+		}
+		ft_putchar('\n');
+		err = 0;
 		r++;
 	}
-	ft_putchar('\n');
-	return (1);
 }
 
-void    ft_solve_group(t_wroad *wroad, t_map *map)
+void    ft_create_group(t_wroad *wroad, t_map *map)
 {
 	unsigned int	map_nb;
 	unsigned int	turn;
 	t_wroad			*tmp;
-	unsigned int	tmp_nb;
 	int						len;
+	int						**tab;
 
 	len = ft_wroad_len(wroad);
 	map_nb = 0;
 	tmp = wroad;
 	turn = NULL;
-	while (tmp)
-	{
-		tmp_nb = ft_get_turn(wroad, tmp, map, len);
-		if (tmp_nb < turn || turn == NULL)
-		{
-			turn = tmp_nb;
-			map_nb = tmp->nb;
-		}
-		tmp = tmp->next;
-	}
-	ft_printf("ANNDDD THE WINNER ROAD IS %d\n", map_nb);
+	tab =  ft_create_tab(wroad, map, len);
+	ft_print_tab(tab, len);
+	bt_grp(tab,len);
 }

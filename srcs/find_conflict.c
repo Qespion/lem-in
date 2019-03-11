@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 15:43:09 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/05 17:02:26 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/07 15:45:12 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,8 @@ int		ft_deep_check(t_road *base_road, t_road *tmp_road, t_map *map)
 
 int				ft_check_doubles(t_conflict *conflict, int nb)
 {
-	ft_printf("nb ->%d\n", nb);
 	while (conflict)
 	{
-		ft_printf("conflict %d\n",conflict->conflict );
 		if (conflict->conflict == nb)
 			return (0);
 		conflict = conflict->next;
