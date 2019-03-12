@@ -6,23 +6,25 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/19 21:23:40 by oespion           #+#    #+#             */
-/*   Updated: 2019/03/06 10:54:24 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/12 10:04:06 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/includes/libft.h"
 #include "lem_in.h"
 
-t_solve		*remove_finish_line(t_solve *solution, t_map *map)
+t_solve		*remove_line(t_solve *solution, t_map *map)
 {
 	t_solve	*tmp;
 
+	while (solution->path->current == map->end || solution->path->current == map->start)
+		solution = solution->next;
 	tmp = solution;
 	while (tmp)
 	{
-		if (tmp->path->current == map->end)
-			solution = solution->next;
-		else if (tmp->next && tmp->next->path->current == map->end)
+		if (tmp->next && tmp->next->path->current == map->end)
+			tmp->next = tmp->next->next;
+		if (tmp->next && tmp->next->path->current == map->start)
 			tmp->next = tmp->next->next;
 		tmp = tmp->next;
 	}

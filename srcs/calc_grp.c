@@ -6,7 +6,7 @@
 /*   By: avo <avo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/04 16:56:23 by avo               #+#    #+#             */
-/*   Updated: 2019/03/06 14:19:14 by avo              ###   ########.fr       */
+/*   Updated: 2019/03/11 16:36:50 by avo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_print_tab(int **tab, int len)
 	}
 }
 
-void    ft_create_group(t_wroad *wroad, t_map *map)
+void    ft_create_group(t_wroad *wroad, t_map *map, int max_roads)
 {
 	unsigned int	map_nb;
 	unsigned int	turn;
@@ -126,8 +126,8 @@ void    ft_create_group(t_wroad *wroad, t_map *map)
 	len = ft_wroad_len(wroad);
 	map_nb = 0;
 	tmp = wroad;
-	turn = NULL;
+	turn = 0;
 	tab =  ft_create_tab(wroad, map, len);
 	ft_print_tab(tab, len);
-	bt_grp(tab,len);
+	bt_grp(tab,len, max_roads, map->nb);
 }
